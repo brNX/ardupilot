@@ -1,10 +1,18 @@
 #include "Copter.h"
+#include "AP_HAL/AnalogIn.h"
+
+AP_HAL::AnalogSource *adc_source;
+
+const uint8_t pin=14;
 
 #ifdef USERHOOK_INIT
 void Copter::userhook_init()
 {
     // put your initialisation code here
     // this will be called once at start-up
+
+    analog_source = hal.analogin->channel(pin);
+
 }
 #endif
 
@@ -40,6 +48,7 @@ void Copter::userhook_SlowLoop()
 void Copter::userhook_SuperSlowLoop()
 {
     // put your 1Hz code here
+    float value = analog_source->voltage_latest();
 }
 #endif
 
