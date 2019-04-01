@@ -1,6 +1,7 @@
 #include "Copter.h"
 #include "AP_HAL/AnalogIn.h"
 #include "DataFlash/DataFlash.h"
+#include "GCS_MAVLink/GCS.h"
 
 AP_HAL::AnalogSource *adc_source;
 
@@ -55,6 +56,7 @@ void Copter::userhook_SuperSlowLoop()
                                        "Qf",
                                         AP_HAL::micros64(),
                                        (double)value);
+    gcs().send_text(MAV_SEVERITY_INFO, "adc value: %5.3f", (double)value);
 }
 #endif
 
